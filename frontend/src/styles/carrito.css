@@ -1,0 +1,103 @@
+.carrito-main {
+    background: rgb(248, 248, 248);
+    border: 1px solid rgb(223, 223, 223);
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.carrito-vacio-text {
+    font-size: 1.5rem;
+    margin: 2rem auto;
+}
+
+.detalle-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    padding: 2rem;
+}
+
+.ir-catalogo:hover {
+    text-decoration: underline;
+}
+
+.detalle-flex img {
+    width: 7rem;
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: .8rem;
+}
+
+.perfume-nombre, .perfume-precio {
+    font-size: 1.5rem;
+}
+
+.pagar {
+    cursor: pointer;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    border-radius: 1rem;
+    background: rgb(53, 53, 53);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(226, 226, 226);
+}
+
+.pagar:hover {
+    background: rgb(41, 41, 41);
+}
+
+.subtotal, .total {
+    padding: 2rem;
+    font-size: 1.4rem;
+}
+
+.eliminar-carrito {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+}
+
+.subtotal-flex, .total-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 1rem;
+}
+
+.total-precio-flex {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.total-flex h3 {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.total-precio-flex span:first-of-type {
+    font-size: 1rem;
+}
+
+.total-precio-flex span:last-of-type{
+    font-size: 1.9rem;
+    font-weight: bolder;
+}
+
+.pagar-button-div {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+@media screen and (width > 700px) {
+    .carrito-main{
+        max-width: 60rem;
+        margin: 5rem auto 0;
+        padding: 5rem;
+    }
+}
+
+

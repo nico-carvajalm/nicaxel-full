@@ -1,0 +1,159 @@
+.h1-catalogo{
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.filtro-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-left: 1rem;
+    margin-bottom: 5rem;
+}
+
+.h3-filtro {
+    font-size: 1.5rem;
+    margin-bottom: .3rem;
+}
+
+.input-filtro, .select-filtro {
+    padding: .5rem;
+    border: 1px solid #cecece;
+    border-radius: 4px;
+    width: 10rem;
+}
+
+.input-filtro:focus{
+    border: 1px solid red;
+}
+
+.select-filtro, .option {
+    cursor: pointer;
+}
+
+.filtrar-button {
+    cursor: pointer;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+
+    &:hover {
+        background: #444444;
+    }
+}
+
+.catalogo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: 70%;
+}
+
+.perfume02 {
+    flex: 1 0 auto;
+    min-width: 200px;
+    max-width: 200px;
+    height: auto;
+}
+
+.perfume-card-contenido02 {
+    padding-left: 1.5rem;
+}
+
+.perfume-card02:first-of-type {
+    margin-left: 1rem;
+}
+
+.perfume-card02 {
+    display: flex;
+    flex-direction: column;
+    max-width: 27rem;
+    border: 1px solid rgb(235, 235, 235);
+    border-radius: 1rem;
+    padding-bottom: 2rem;
+}
+
+.perfume-card02 img {
+    width: 150px;
+}
+
+.descripcion-div02 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.marca02 {
+    font-size: 1.3rem;
+    color: rgb(155, 155, 155);
+}
+
+.descripcion02 {
+    font-size: 1.7rem;
+    font-weight: bolder;
+    color: rgb(70, 70, 70);
+    line-height: 2.5rem;
+}
+
+.precio02 {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 3rem;
+    font-size: 1.7rem;
+}
+
+.precio02 span:first-of-type {
+    font-weight: bolder;
+}
+
+.precio02 span:last-of-type {
+    font-size: 1.5rem;
+    text-decoration: line-through;
+    color: rgb(119, 119, 119);
+}
+
+.addCarrito02 {
+    cursor: pointer;
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 1.7rem;
+    padding: 1.2rem 0;
+    font-weight: 600;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 3rem;
+    color: white;
+    background: rgb(255, 38, 38);
+}
+
+.addCarrito02:hover {
+    background: rgb(231, 89, 89);
+}
+
+/* Notificaciones */
+.Toastify__toast-container {
+    font-family: 'Arial', sans-serif;
+}
+
+.Toastify__toast--success {
+    background: #4CAF50 !important;  
+    color: #fff !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
+}
+
+.Toastify__progress-bar--success {
+    background: #ffffff !important;
+}
+
+

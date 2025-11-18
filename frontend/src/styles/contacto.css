@@ -1,0 +1,100 @@
+.form-main {
+    display: grid;
+}
+
+.form-h1 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-top: 40px;
+    margin-bottom: 2rem;
+}
+
+.formulario-div {
+    display: grid;
+    margin: 1rem auto;
+    width: 90%;
+    border-radius: .5rem;
+    border: 1px solid rgb(226, 226, 226);
+}
+
+.form-h2 {
+    font-size: 2.5rem;
+    padding: 1.2rem 1.7rem;
+    border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+form {
+    display: grid;
+    gap: .8rem;
+    padding: 2rem 1.7rem;
+}
+
+form label:first-of-type {
+    margin-top: .5rem;
+}
+
+form label {
+    margin-top: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: bolder;
+}
+
+form input, form textarea{
+    padding: .8rem 1rem;
+    border: 1px solid rgb(224, 224, 224);
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 5rem;
+    max-height: 30rem;
+}
+
+form input:focus{
+    border: 1px solid rgb(114, 114, 114);
+    outline: none;
+}
+
+form textarea:focus{
+    border: 1px solid rgb(66, 66, 66);
+    outline: none;
+}
+
+form input::placeholder, form textarea::placeholder {
+    color: rgb(179, 179, 179);
+}
+
+form button {
+    width: 15rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 0 auto;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: none;
+    border-radius: .3rem;
+    background: rgb(53, 53, 53);
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: rgb(41, 41, 41);
+}
+
+footer {
+    margin-top: 10rem;
+}
+
+#contador{
+    margin-top: -.5rem;
+    font-size: 1.1rem;
+}
+
+@media screen and (width > 700px) {
+    .form-main{
+        max-width: 60rem;
+        margin: 0 auto;
+    }
+}
+

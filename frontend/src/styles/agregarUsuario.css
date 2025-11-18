@@ -1,0 +1,80 @@
+.gestionUsuarios-main {
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    color: red;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.form-usuario button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+
+    &:hover {
+        background: #0056b3;
+    }
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-usuarios th,
+.tabla-usuarios td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.tabla-usuarios th {
+    background-color: #f4f4f4;
+}
+
+.select-rol {
+    cursor: pointer;
+    height: 3rem;
+}
+
+.acciones-flex {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.acciones-flex button {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.edit-button {
+    width: 27px;
+    height: 27px;
+    background: rgb(27, 127, 221);
+
+    &:hover {
+        background: rgb(12, 90, 151);
+    }
+}
+
+.delete-button {
+    width: 27px;
+    height: 27px;
+    background: rgb(206, 61, 61);
+
+    &:hover {
+        background: red;
+    }
+}

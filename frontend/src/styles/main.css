@@ -1,0 +1,627 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+.nav-menu--a11y {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    white-space: nowrap !important;
+}
+
+/* ---------------------- NAVBAR ------------------------- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    background: white;
+}
+
+.navbar-mobile {
+    display: block;
+}
+
+.navbar-mobile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.burger-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 1.5rem;
+    padding: 15px 0;
+}
+
+.burger-menu a, .burger-menu button {
+    font-weight: 500;
+    padding: 8px 0;
+    background: none;
+}
+
+.logout-button-flex, .login-button-flex {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    border-top: 1px solid rgb(0, 0, 0);
+    font-size: 1.4rem;
+}
+
+.carrito-mobile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.navbar-dekstop {
+    display: none;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.tittle {
+    font-size: 2.6rem;
+    font-weight: 600;
+}
+
+nav .nav-medio {
+    display: none;
+    align-items: center;
+    gap: 3rem;
+    font-size: 1.8rem;
+}
+
+nav .nav-derecha {
+    display: flex;
+    gap: .7rem;
+}
+
+.carrito-flex {
+    display: flex;
+}
+
+nav .nav-derecha span{
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+nav .nav-medio a:hover{
+    text-decoration: underline;
+}
+
+nav a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+nav .nav-derecha img {
+    width: 25px;
+    cursor: pointer;
+}
+
+nav .nav-derecha img:hover {
+    scale: 1.1;
+}
+
+.banner-div {
+    text-align: center;
+    padding: .8rem;
+    font-size: 1.1rem;
+    background: black;
+    color: white;
+}
+
+.banner-div span span {
+    color: red;
+}
+
+.pincha {
+    text-decoration: underline;
+    color: white;
+}
+
+.pincha:hover {
+    color: rgb(226, 226, 226);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+header .header-img-01 {
+    object-fit: cover;
+    width: 100%;
+    height: 15rem;
+}
+
+header .header-img-02 {
+    display: none;
+    width: 70rem;
+    height: 50rem;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.header-contenido {
+    display: grid;
+    gap: 1.3rem;
+    padding: 2rem;
+    padding-right: 7rem;
+}
+
+header h1 {
+    font-size: 4rem;
+    font-weight: 400;
+}
+
+header p, .header-button {
+    font-size: 1.7rem;
+}
+
+.header-button {
+    width: 15.5rem;
+    padding: 1rem;
+    margin-top:.7rem;
+    text-decoration: none;
+    background: rgb(43, 43, 43);
+    color: white;
+    cursor: pointer;
+    transition: .2s all ease;
+}
+
+.header-button:hover {
+    background: rgb(0, 0, 0);
+}
+
+.banner-lanzamiento {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.3rem;
+    background: rgb(241, 241, 241);
+}
+
+.banner-lanzamiento-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+}
+
+.banner-lanzamiento-text {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.banner-lanzamiento-text span {
+    font-size: 1.3rem;
+}
+
+.banner-lanzamiento-text span:first-of-type{
+    font-weight: bolder;
+}
+
+.lanzamiento {
+    text-align: center;
+}
+
+.lanzamiento img, .perfume-card img{
+    width: 100%;
+    height: auto;
+}
+
+.lanzamiento-img-02 {
+    display: none;
+}
+
+.mas-vendidos {
+    margin-top: 3rem;
+    padding: 1rem;
+}
+
+.mas-vendidos h3 {
+    margin-left: 1.3rem;
+    font-size: 2.5rem;
+}
+
+.mas-vendidos a {
+    margin-left: 1.8rem;
+    font-size: 1.4rem;
+    color: red;
+    text-decoration: underline;
+}
+
+.perfumes-carrusel {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding-bottom: 2rem;
+    margin-bottom: 5rem;
+}
+
+.perfume {
+    flex: 1 0 auto;
+    width: 200px;
+    height: auto;
+}
+
+.perfume-card-contenido {
+    padding-left: 1.5rem;
+}
+
+.perfume-card:first-of-type {
+    margin-left: 1rem;
+}
+
+.perfume-card {
+    display: flex;
+    flex-direction: column;
+    max-width: 27rem;
+    padding-right: .5rem;
+    border-right: 1px solid rgb(230, 230, 230);
+}
+
+.perfume-card img {
+    width: 150px;
+}
+
+.descripcion-div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.marca {
+    font-size: 1.3rem;
+    color: rgb(155, 155, 155);
+}
+
+.descripcion {
+    font-size: 1.7rem;
+    font-weight: bolder;
+    color: rgb(70, 70, 70);
+    line-height: 2.5rem;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: .5rem;
+}
+
+.rating span:last-of-type {
+    font-size: 1.4rem;
+}
+
+.precio {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 3rem;
+    font-size: 1.7rem;
+}
+
+.precio span:first-of-type {
+    font-weight: bolder;
+}
+
+.precio span:last-of-type {
+    font-size: 1.5rem;
+    text-decoration: line-through;
+    color: rgb(119, 119, 119);
+}
+
+.addCarrito {
+    cursor: pointer;
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 1.7rem;
+    padding: 1.2rem 0;
+    font-weight: 600;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 3rem;
+    color: white;
+    background: red;
+}
+
+.addCarrito:hover {
+    background: rgb(206, 74, 74);
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    font-size: 1.3rem;
+    background: rgb(39, 39, 39);
+    color: white;
+    padding: 2rem;
+}
+
+.seccion-footer {
+    display: grid;
+    gap: 1rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.footer-links a {
+    color: white;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.licencia {
+    text-align: center;
+    padding-bottom: 2rem;
+    font-size: 1.3rem;
+    background: rgb(39, 39, 39);
+    color: white;
+}
+
+@media screen and (width > 460px) {
+
+    .tittle {
+        font-size: 3rem;
+    }
+
+    header .header-img-01 {
+        height: 23rem;
+    }
+
+    .banner-div {
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    header h1 {
+        font-size: 5rem;
+    }
+
+    header p, .header-button {
+        font-size: 2rem;
+    }
+
+    .header-button {
+        width: 17rem;
+    }
+}
+
+@media screen and (width > 700px) {
+
+    nav {
+        align-items: center;
+    }
+
+    .navbar-dekstop {
+        display: flex;
+    }
+
+    .navbar-mobile {
+        display: none;
+    }
+
+    nav {
+        padding: 1rem 3rem;
+    }
+
+    nav .nav-medio {
+        display: flex;
+    }
+    
+    header .header-img-01 {
+        height: 30rem;
+    }
+
+    .header-contenido {
+        padding-right: 10rem;
+    }
+
+    .lanzamiento-img-01 {
+        display: none;
+    }
+
+    .lanzamiento-img-02 {
+        display: block;
+    }
+}
+
+@media screen and (width > 800px) {
+
+    header h1 {
+        font-size: 6rem;
+    }
+
+    header p, .header-button {
+        font-size: 2rem;
+    }
+
+    .banner-div {
+        padding: 1.2rem;
+        font-size: 1.3rem;
+    }
+
+    .header-contenido {
+        padding-right: 20rem;
+    }
+
+    
+    footer {
+        padding: 4rem;
+        flex-direction: row;
+        align-items: start;
+        justify-content: center;
+        gap: 10rem;
+    }
+}
+
+@media screen and (width > 1015px) {
+    .perfume {
+        flex: 0;
+    }
+
+    .perfumes-carrusel {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .perfume-card {
+        border: none;
+    }
+
+    .perfume-card img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .addCarrito {
+        width: 100%;
+    }
+
+    .bourbon-img {
+        height: 20rem;
+    }   
+
+    .mas-vendidos h3 {
+        margin-left: 2rem;
+        font-size: 3.5rem;
+    }
+
+    .mas-vendidos a {
+        margin-left: 3rem;
+        font-size: 2rem;
+    }
+}
+
+@media screen and (width > 1060px) {
+
+    header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 3rem 6rem;
+    }
+
+    header .header-img-01 {
+        display: none;
+    }
+
+    .header-contenido {
+        padding: 0;
+        gap: 2rem;
+    }
+
+    header .header-img-02 {
+        display: block;
+        width: 70rem;
+        height: 40rem;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+
+
+@media screen and (width > 1400px) {
+
+    header .header-img-02 {
+        height: 50rem;
+    }
+
+    header h1 {
+        font-size: 9rem;
+    }
+
+    header p, .header-button {
+        font-size: 2.2rem;
+    }
+
+    .header-contenido {
+        padding-right: 0;
+    }
+
+    .header-button {
+        width: 18.5rem;
+    }
+}
+
+@media screen and (width > 1550px) {
+
+    .marca {
+        font-size: 1.6rem;
+    }
+
+    .descripcion {
+        font-size: 2rem;
+    }
+
+    .rating {
+        font-size: 1.5rem;
+    }
+
+    .rating span:last-of-type {
+        font-size: 1.7rem;
+    }
+
+    .precio {
+        font-size: 2.3rem;
+    }
+
+    .precio span:last-of-type {
+        font-size: 1.5rem;
+    }
+
+    .addCarrito {
+        width: 100%;
+        padding: 1.2rem 0;
+        font-size: 1.7rem;
+    }
+}
+}

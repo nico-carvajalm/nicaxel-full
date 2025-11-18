@@ -1,0 +1,45 @@
+.adminHome-main {
+    padding: 1rem;
+}
+
+.h1-admin {
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.gestion-container {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.gestion-card-right {
+    display: flex;
+    align-items: center;
+}
+
+.gestion-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 0 auto;
+    padding: 2rem;
+    font-size: 1.7rem;
+    width: 80%;
+    max-width: 30rem;
+    border-radius: 8px;
+    background: rgb(36, 36, 36);
+    color: white;
+    font-weight: bolder;
+
+    &:hover {
+        background: rgb(50, 50, 50);
+        cursor: pointer;
+    }
+}
+
+.gestion-card span:nth-child(2) {
+    font-weight: lighter;
+}
