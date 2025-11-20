@@ -106,18 +106,18 @@
 
 .precio02 {
     display: flex;
-    align-items: center;
-    gap: 3rem;
-    margin-top: 3rem;
-    font-size: 1.7rem;
+    flex-direction: column;
+    margin-top: 2rem;
 }
 
-.precio02 span:first-of-type {
-    font-weight: bolder;
+.precio-final02 {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #000;
 }
 
-.precio02 span:last-of-type {
-    font-size: 1.5rem;
+.precio-old02 {
+    font-size: 1.4rem;
     text-decoration: line-through;
     color: rgb(119, 119, 119);
 }

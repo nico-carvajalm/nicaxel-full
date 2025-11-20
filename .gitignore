@@ -1,3 +1,13 @@
-/frontend/node_modules
-/**/target
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Java
+product-service/target/
+
+# Docker
+*.log
+
+# System
 .DS_Store
+Thumbs.db

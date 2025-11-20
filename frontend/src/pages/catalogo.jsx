@@ -126,7 +126,13 @@ export default function Catalogo() {
                                 </div>
 
                                 <div className="precio02">
-                                    <span>${product.price.toLocaleString("es-CL")}</span>
+                                    <span className="precio-final02">
+                                        ${product.finalPrice?.toLocaleString("es-CL")}
+                                    </span>
+
+                                    <span className="precio-old02">
+                                        ${product.price?.toLocaleString("es-CL")}
+                                    </span>
                                 </div>
                             </div>
 

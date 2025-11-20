@@ -14,6 +14,7 @@ public class Product {
     private String brand;
     private Integer stock;
     private Integer price;
+    private Integer finalPrice;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -66,5 +67,13 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Integer getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(Integer finalPrice) {
+        this.finalPrice = finalPrice;
     }
 }
