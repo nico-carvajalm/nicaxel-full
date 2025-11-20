@@ -1,114 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; 
 
 
-const listaPerfumes = [
-    {
-        imagen: "/Img/212vip.jpg", 
-        id: 1,
-        nombre: "212 VIP",
-        precio: 89990,
-        descripcion: "Perfume masculino elegante y moderno, con notas de ron, vainilla y frutas.",
-        categoria: "Carolina Herrera"
-    },
-    {
-        imagen: "/Img/AcquaDiGio.jpeg",
-        id: 2,
-        nombre: "Acqua di Gio",
-        precio: 139990,
-        descripcion: "Fragancia masculina fresca y acuática, con notas de cítricos y jazmín.",
-        categoria: "Giorgio Armani"
-    },
-    {
-        imagen: "/Img/Asad.jpeg",
-        id: 3,
-        nombre: "Asad",
-        precio: 29890,
-        descripcion: "Perfume árabe masculino con notas amaderadas y especiadas, elegante y duradero.",
-        categoria: "Lattafa"
-    },
-    {
-        imagen: "/Img/azzaro.jpeg",
-        id: 4,
-        nombre: "Azzaro Most Wanted",
-        precio: 99990,
-        descripcion: "Fragancia masculina moderna con notas de menta, especias y madera de cedro.",
-        categoria: "Azzaro"
-    },
-    {
-        imagen: "/Img/eros.jpg",
-        id: 5,
-        nombre: "Versace Eros EDT",
-        precio: 79990,
-        descripcion: "Perfume masculino fresco y sensual, con notas de menta, manzana verde y vainilla.",
-        categoria: "Versace"
-    },
-    {
-        imagen: "/Img/Nitro-Red.jpeg",
-        id: 6,
-        nombre: "Nitro Red",
-        precio: 19990,
-        descripcion: "Fragancia árabe masculina intensa y duradera, ideal para ocasiones especiales.",
-        categoria: "Al Haramain"
-    },
-    {
-        imagen: "/Img/Paris-Corner.jpeg",
-        id: 7,
-        nombre: "Paris Corner",
-        precio: 69990,
-        descripcion: "Perfume árabe unisex con aroma dulce y floral, inspirado en fragancias clásicas de diseñador.",
-        categoria: "Paris Corner"
-    },
-    {
-        imagen: "/Img/Yara-Lattafa.jpeg",
-        id: 8,
-        nombre: "Yara",
-        precio: 84990,
-        descripcion: "Fragancia árabe femenina con notas florales y frutales, elegante y delicada.",
-        categoria: "Lattafa"
-    },
-    {
-        imagen: "/Img/LeMaleElixir.jpeg",
-        id: 9,
-        nombre: "LeMale Elixir",
-        precio: 119990,
-        descripcion: "Perfume masculino oriental y dulce, con notas de vainilla, menta y lavanda.",
-        categoria: "Jean Paul Gaultier"
-    },
-    {
-        imagen: "/Img/Hawas.jpeg",
-        id: 10,
-        nombre: "Hawas Ice",
-        precio: 29990,
-        descripcion: "Fragancia árabe masculina fresca y deportiva, con notas frutales y amaderadas.",
-        categoria: "Rasasi"
-    },
-    {
-        imagen: "/Img/Eclaire-Lattafa.jpeg",
-        id: 11,
-        nombre: "Eclaire de Lattafa",
-        precio: 89990,
-        descripcion: "Perfume árabe femenino con aroma dulce y floral, elegante y duradero.",
-        categoria: "Lattafa"
-    }
-];
 
 
 export default function Catalogo() {
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(300000);
     const [selectedCategory, setSelectedCategory] = useState("todos");
-    const [filteredProducts, setFilteredProducts] = useState(listaPerfumes);
+    const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    useEffect(() => {
+        fetch(`${API_URL}/api/products`)
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data);
+                setFilteredProducts(data);
+            })
+            .catch(err => console.error("Error cargando productos:", err));
+    }, []);
+
+    
 
     const handleFilterClick = () => {
-        const newFilteredParfums = listaPerfumes.filter((product) => {
-            const priceInRange = product.precio >= minPrice && product.precio <= maxPrice;
+        const newFilteredParfums = products.filter((product) => {
+            const priceInRange = product.price >= minPrice && product.price <= maxPrice;
             const inSelectedCategory =
-                selectedCategory === "todos" || product.categoria === selectedCategory;
+                selectedCategory === "todos" || product.brand === selectedCategory;
             return priceInRange && inSelectedCategory;
-        });
+});
         setFilteredProducts(newFilteredParfums);
     };
 
@@ -124,7 +49,7 @@ export default function Catalogo() {
 
         localStorage.setItem("carrito", JSON.stringify(carrito));
 
-        toast.success(`${product.nombre} fue agregado al carrito 🛒`, {
+        toast.success(`${product.name} fue agregado al carrito 🛒`, {
             position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -189,20 +114,19 @@ export default function Catalogo() {
                     <div className="perfume02" key={product.id}>
                         <div className="perfume-card02">
                             <img
-                                src={product.imagen}
-                                alt={product.nombre}
+                                src={product.imageUrl}
+                                alt={product.name}
                                 className="product-image02"
                             />
+
                             <div className="perfume-card-contenido02">
                                 <div className="descripcion-div02">
-                                    <span className="marca02">{product.categoria}</span>
-                                    <span className="descripcion02">{product.nombre}</span>
+                                    <span className="marca02">{product.brand}</span>
+                                    <span className="descripcion02">{product.name}</span>
                                 </div>
+
                                 <div className="precio02">
-                                    <span>${product.precio.toLocaleString("es-CL")}</span>
-                                    <span>
-                                        ${(product.precio + 30000).toLocaleString("es-CL")}
-                                    </span>
+                                    <span>${product.price.toLocaleString("es-CL")}</span>
                                 </div>
                             </div>
 
@@ -216,6 +140,7 @@ export default function Catalogo() {
                     </div>
                 ))}
             </section>
+
         </main>
     );
 }

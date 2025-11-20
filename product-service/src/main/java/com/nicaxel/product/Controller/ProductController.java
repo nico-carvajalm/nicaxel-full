@@ -1,7 +1,7 @@
-package com.nicaxel.product.Controller;
+package com.nicaxel.product.controller;
 
-import com.nicaxel.product.Model.Product;
-import com.nicaxel.product.Service.ProductService;
+import com.nicaxel.product.models.Product;
+import com.nicaxel.product.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,10 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService service;
-    public ProductController(ProductService service) { this.service = service; }
+
+    public ProductController(ProductService service) {
+        this.service = service;
+    }
 
     @GetMapping
     @Operation(summary = "Listar productos")

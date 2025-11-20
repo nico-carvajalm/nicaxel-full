@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./product-service
+    container_name: nicaxel-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - nicaxel-net
+
+  frontend:
+    build:
+      context: ./frontend  
+    container_name: nicaxel-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:8080
+    networks:
+      - nicaxel-net
+
+networks:
+  nicaxel-net:
+    driver: bridge

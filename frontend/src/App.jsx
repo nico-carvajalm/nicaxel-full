@@ -9,7 +9,7 @@ import Catalogo from './pages/Catalogo';
 import Contacto from './pages/Contacto';
 import Login from './pages/Login';
 import Nosotros from './pages/Nosotros';
-import Register from './pages/register';
+import Register from './pages/Register';
 
 import AdminHome from './pages/AdminHome';
 import AgregarProducto from "./pages/AgregarProducto";

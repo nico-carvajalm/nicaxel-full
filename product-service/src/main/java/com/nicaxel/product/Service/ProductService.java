@@ -1,7 +1,7 @@
-package com.nicaxel.product.Service;
+package com.nicaxel.product.service;
 
-import com.nicaxel.product.Model.Product;
-import com.nicaxel.product.Repository.ProductRepository;
+import com.nicaxel.product.models.Product;
+import com.nicaxel.product.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
+
     private final ProductRepository repo;
 
     public ProductService(ProductRepository repo) {
