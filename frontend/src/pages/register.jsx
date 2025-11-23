@@ -3,22 +3,19 @@ import { useNavigate, Link } from "react-router-dom";
 
 export default function Register() {
     const navigate = useNavigate();
+    const API_USER = import.meta.env.VITE_USER_API_URL;
 
     const [nombre, setNombre] = useState("");
     const [correo, setCorreo] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
-    const [errores, setErrores] = useState({
-        nombre: "",
-        correo: "",
-        password: "",
-        repeat: "",
-    });
 
-    const validarRegistro = (e) => {
+    const [errores, setErrores] = useState({});
+
+    const validarRegistro = async (e) => {
         e.preventDefault();
         let valido = true;
-        const nuevosErrores = { nombre: "", correo: "", password: "", repeat: "" };
+        let nuevosErrores = {};
 
         if (!nombre.trim()) {
             nuevosErrores.nombre = "El nombre no puede estar vacío.";
@@ -26,7 +23,7 @@ export default function Register() {
         }
 
         if (!correo.includes("@")) {
-            nuevosErrores.correo = "Ingrese un correo válido.";
+            nuevosErrores.correo = "Correo inválido.";
             valido = false;
         }
 
@@ -43,18 +40,27 @@ export default function Register() {
         setErrores(nuevosErrores);
         if (!valido) return;
 
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+        try {
+            const response = await fetch(`${API_USER}/api/auth/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: nombre,
+                    email: correo,
+                    password: password1,
+                    role: "USER"
+                })
+            });
 
-        if (usuarios.some(u => u.correo === correo)) {
-            setErrores({ ...nuevosErrores, correo: "Ya existe un usuario con este correo." });
-            return;
+            if (response.ok) {
+                navigate("/login");
+            } else {
+                setErrores({ correo: "El correo ya está registrado." });
+            }
+
+        } catch (err) {
+            console.error("Error registrando:", err);
         }
-
-        const nuevoUsuario = { nombre, correo, contraseña: password1, rol: "CLIENTE" };
-        usuarios.push(nuevoUsuario);
-        localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-        navigate("/login");
     };
 
     return (
@@ -62,65 +68,28 @@ export default function Register() {
             <h1 className="form-h1">Regístrate</h1>
 
             <section className="formulario-div">
-                <form id="formRegistro" onSubmit={validarRegistro}>
-                    <label htmlFor="nombre">Nombre*</label>
-                    <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        placeholder="Ingresa tu nombre"
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                    />
-                    {errores.nombre && <span style={{ color: "rgb(179, 56, 56)" }}>{errores.nombre}</span>}
+                <form onSubmit={validarRegistro}>
+                    <label>Nombre*</label>
+                    <input value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                    {errores.nombre && <span style={{ color: "red" }}>{errores.nombre}</span>}
 
-                    <label htmlFor="correo">Correo electrónico*</label>
-                    <input
-                        type="email"
-                        id="correo"
-                        name="correo"
-                        placeholder="ejemplo@gmail.com"
-                        value={correo}
-                        onChange={(e) => setCorreo(e.target.value)}
-                    />
-                    {errores.correo && <span style={{ color: "rgb(179, 56, 56)" }}>{errores.correo}</span>}
+                    <label>Email*</label>
+                    <input value={correo} onChange={(e) => setCorreo(e.target.value)} />
+                    {errores.correo && <span style={{ color: "red" }}>{errores.correo}</span>}
 
-                    <label htmlFor="password1">Contraseña*</label>
-                    <input
-                        type="password"
-                        id="password1"
-                        name="password1"
-                        placeholder="Ingresa tu nueva contraseña"
-                        value={password1}
-                        onChange={(e) => setPassword1(e.target.value)}
-                    />
-                    {errores.password && <span style={{ color: "rgb(179, 56, 56)" }}>{errores.password}</span>}
+                    <label>Contraseña*</label>
+                    <input type="password" value={password1} onChange={(e) => setPassword1(e.target.value)} />
+                    {errores.password && <span style={{ color: "red" }}>{errores.password}</span>}
 
-                    <label htmlFor="password2">Repetir contraseña*</label>
-                    <input
-                        type="password"
-                        id="password2"
-                        name="password2"
-                        placeholder="Repite la contraseña"
-                        value={password2}
-                        onChange={(e) => setPassword2(e.target.value)}
-                    />
-                    {errores.repeat && <span style={{ color: "rgb(179, 56, 56)" }}>{errores.repeat}</span>}
-
-                    <div className="remember-register-flex">
-                        <div className="remember-me">
-                            <input type="checkbox" className="checkbox" title="recordar-contraseña" />
-                            Recordar contraseña
-                        </div>
-                        <span>
-                            ¿Ya tienes cuenta?{" "}
-                            <Link to="/login" className="register-here">
-                                Iniciar sesión
-                            </Link>
-                        </span>
-                    </div>
+                    <label>Repetir contraseña*</label>
+                    <input type="password" value={password2} onChange={(e) => setPassword2(e.target.value)} />
+                    {errores.repeat && <span style={{ color: "red" }}>{errores.repeat}</span>}
 
                     <button type="submit">Registrar</button>
+
+                    <div className="remember-register-flex">
+                        <Link to="/login">¿Ya tienes cuenta? Inicia sesión</Link>
+                    </div>
                 </form>
             </section>
         </main>

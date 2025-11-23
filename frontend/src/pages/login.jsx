@@ -1,69 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
+    const API_USER = window.location.hostname === "localhost"
+    ? "http://localhost:8081"
+    : "http://host.docker.internal:8081";
+
 
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
-    const [recordar, setRecordar] = useState(false);
+    const [error, setError] = useState("");
 
-    const [errorCorreo, setErrorCorreo] = useState("");
-    const [errorPassword, setErrorPassword] = useState("");
-
-    useEffect(() => {
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-        if (!usuarios.some(u => u.correo === "axel@admin.com")) {
-            usuarios.push({
-                nombre: "Axel Soto",
-                correo: "axel@admin.com",
-                contraseña: "aaaa",
-                rol: "ADMIN",
-            });
-            localStorage.setItem("usuarios", JSON.stringify(usuarios));
-        }
-
-        const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-        if (usuarioActivo) {
-            navigate(usuarioActivo.rol === "ADMIN" ? "/adminHome" : "/");
-        }
-    }, []);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let valido = true;
+        setError("");
 
-        if (!correo.includes("@")) {
-            setErrorCorreo("Ingresa un correo válido.");
-            valido = false;
-        } else setErrorCorreo("");
+        try {
+            const response = await fetch(`${API_USER}/api/auth/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: correo,
+                    password: password
+                })
+            });
 
-        if (password.length < 4) {
-            setErrorPassword("La contraseña debe tener al menos 4 caracteres.");
-            valido = false;
-        } else setErrorPassword("");
+            if (!response.ok) {
+                setError("Correo o contraseña incorrectos.");
+                return;
+            }
 
-        if (!valido) return;
+            const data = await response.json();
 
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            // guardar token y datos del usuario en localStorage
+            localStorage.setItem("usuarioActivo", JSON.stringify(data));
 
-        const usuarioPorCorreo = usuarios.find(u => u.correo === correo);
 
-        if (!usuarioPorCorreo) {
-            setErrorCorreo("El correo ingresado no está registrado.");
-            setErrorPassword("");
-            return;
+            // avisar al navbar
+            window.dispatchEvent(new Event("usuarioLogueado"));
+
+            // redirigir según rol
+            if (data.role === "ADMIN") {
+                navigate("/adminHome");
+            } else {
+                navigate("/");
+            }
+
+        } catch (err) {
+            console.error("Error en login:", err);
+            setError("Error de conexión con el servidor.");
         }
-
-        if (usuarioPorCorreo.contraseña !== password) {
-            setErrorCorreo("");
-            setErrorPassword("Contraseña incorrecta.");
-            return;
-        }
-
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioPorCorreo));
-        window.dispatchEvent(new Event("usuarioLogueado"));
-        navigate(usuarioPorCorreo.rol === "ADMIN" ? "/adminHome" : "/");
     };
 
     return (
@@ -71,49 +58,28 @@ export default function Login() {
             <h1 className="form-h1">Iniciar sesión</h1>
 
             <section className="formulario-div">
-                <form onSubmit={handleSubmit} id="miFormulario" noValidate>
-                    <label htmlFor="correo">Correo electrónico*</label>
+                <form onSubmit={handleSubmit}>
+                    <label>Correo electrónico*</label>
                     <input
                         type="email"
-                        id="correo"
-                        name="correo"
-                        placeholder="ejemplo@gmail.com"
                         value={correo}
                         onChange={(e) => setCorreo(e.target.value)}
                     />
-                    {errorCorreo && <span style={{ color: "rgb(179, 56, 56)" }}>{errorCorreo}</span>}
 
-                    <label htmlFor="password">Contraseña*</label>
+                    <label>Contraseña*</label>
                     <input
                         type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Ingresa tu contraseña aquí"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    {errorPassword && <span style={{ color: "rgb(179, 56, 56)" }}>{errorPassword}</span>}
 
-                    <div className="remember-register-flex">
-                        <div className="remember-me">
-                            <input
-                            type="checkbox"
-                            className="checkbox"
-                            id="recordar"
-                            checked={recordar}
-                            onChange={() => setRecordar(!recordar)}
-                            />
-                            <label htmlFor="recordar">Recordar contraseña</label>
-                        </div>
-                        <span>
-                            ¿No tienes cuenta?{" "}
-                            <Link to="/register" className="register-here">
-                            Regístrate aquí
-                            </Link>
-                        </span>
-                    </div>
+                    {error && <span style={{ color: "red" }}>{error}</span>}
 
                     <button type="submit">Iniciar sesión</button>
+
+                    <Link to="/register" className="register-here">
+                        ¿No tienes cuenta? Regístrate aquí
+                    </Link>
                 </form>
             </section>
         </main>

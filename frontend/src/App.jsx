@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 import LayoutPublic from './layouts/LayoutPublic';
 import LayoutAdmin from './layouts/LayoutAdmin';
 
@@ -15,30 +16,21 @@ import AdminHome from './pages/AdminHome';
 import AgregarProducto from "./pages/AgregarProducto";
 import AgregarUsuario from "./pages/AgregarUsuario";
 
+
+//  RUTA PRIVADA SEGÚN ROL REAL
 const PrivateRoute = ({ children }) => {
-    const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-    return usuarioActivo && usuarioActivo.rol === "ADMIN" ? children : <Navigate to="/login" />;
+    const role = localStorage.getItem("role");
+    return role === "ADMIN" ? children : <Navigate to="/login" />;
 };
 
 export default function App() {
-    
-    useEffect(() => {
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-        if (!usuarios.some(u => u.correo === "axel@admin.cl")) {
-            usuarios.push({
-                nombre: "Axel Soto",
-                correo: "axel@admin.cl",
-                contraseña: "aaaa",
-                rol: "ADMIN",
-            });
-            localStorage.setItem("usuarios", JSON.stringify(usuarios));
-        }
-    }, []);
-
     return (
         <Router>
             <Routes>
-                {/* TIENDA */}
+
+                {/* ----------------------- */}
+                {/*         PÚBLICAS        */}
+                {/* ----------------------- */}
                 <Route element={<LayoutPublic />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/carrito" element={<Carrito />} />
@@ -49,7 +41,9 @@ export default function App() {
                     <Route path="/register" element={<Register />} />
                 </Route>
 
-                {/* ADMIN */}
+                {/* ----------------------- */}
+                {/*          ADMIN          */}
+                {/* ----------------------- */}
                 <Route element={<LayoutAdmin />}>
                     <Route
                         path="/adminHome"
@@ -77,9 +71,11 @@ export default function App() {
                     />
                 </Route>
 
+                {/* ----------------------- */}
+                {/*         404             */}
+                {/* ----------------------- */}
                 <Route path="*" element={<h1>Página no encontrada</h1>} />
             </Routes>
         </Router>
     );
 }
-

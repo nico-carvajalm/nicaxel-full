@@ -35,7 +35,8 @@ export default function PanelNavbarAdmin() {
         <div className="navbar-admin">
             <h1>
                 <Link to="/adminHome">
-                    {usuarioActivo ? `Admin - ${usuarioActivo.nombre}` : "Administrador"}
+                    {usuarioActivo ? `Admin - ${usuarioActivo.name}` : "Administrador"}
+
                 </Link>
             </h1>
 

@@ -110,6 +110,13 @@ export default function BannerNavbar() {
                 </div>
 
                 <div className="nav-derecha">
+
+                    {usuarioActivo && (
+                        <span style={{ color: "#333", marginRight: "10px" }}>
+                            Hola, {usuarioActivo.name}
+                        </span>
+                    )}
+
                     {!usuarioActivo ? (
                         <Link to="/login">
                             <img src="/Img/login.svg" alt="Icono de login" />
@@ -136,6 +143,7 @@ export default function BannerNavbar() {
                         </Link>
                     </div>
                 </div>
+
             </nav>
         </div>
     );
