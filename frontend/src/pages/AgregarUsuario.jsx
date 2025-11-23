@@ -1,204 +1,162 @@
-import React, { useState, useContext } from "react";
-import { AdminContext } from "../layouts/LayoutAdmin";
-import "../styles/agregarUsuario.css";
+import React, { useEffect, useState } from "react";
 
 export default function AgregarUsuario() {
-    
-    const { usuarios, setUsuarios } = useContext(AdminContext);
-    const [nuevoUsuario, setNuevoUsuario] = useState({
-        nombre: "",
-        correo: "",
-        contraseña: "",
-        rol: "",
-    });
-    const [errores, setErrores] = useState({});
-    const [editando, setEditando] = useState(null);
+  const API_USER =
+    window.location.hostname === "localhost"
+      ? "http://localhost:8081"
+      : "http://host.docker.internal:8081";
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNuevoUsuario({ ...nuevoUsuario, [name]: value });
-        setErrores({ ...errores, [name]: "" });
-    };
+  const [usuarios, setUsuarios] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("USER");
+  const [error, setError] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
-    const validarCampos = () => {
-        let nuevosErrores = {};
+  const cargarUsuarios = async () => {
+    try {
+      const res = await fetch(`${API_USER}/api/users`);
+      if (!res.ok) throw new Error("Error al cargar usuarios");
+      const data = await res.json();
+      setUsuarios(data);
+    } catch (err) {
+      console.error(err);
+      setError("Error al cargar usuarios");
+    }
+  };
 
-        if (!nuevoUsuario.nombre.trim())
-            nuevosErrores.nombre = "El nombre no puede estar vacío.";
+  useEffect(() => {
+    cargarUsuarios();
+  }, []);
 
-        if (!nuevoUsuario.correo.trim())
-            nuevosErrores.correo = "El correo no puede estar vacío.";
-        else if (!/\S+@\S+\.\S+/.test(nuevoUsuario.correo))
-            nuevosErrores.correo = "El correo no tiene un formato válido.";
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMensaje("");
 
-        if (
-            nuevoUsuario.rol === "ADMIN" &&
-            !nuevoUsuario.correo.endsWith("@admin.com")
-        ) {
-            nuevosErrores.correo =
-                "Si el rol es ADMIN, el correo debe terminar en '@admin.com'.";
-        }
+    if (!name || !email || !password) {
+      setError("Todos los campos son obligatorios");
+      return;
+    }
 
-        if (!nuevoUsuario.contraseña.trim())
-            nuevosErrores.contraseña = "La contraseña no puede estar vacía.";
-        else if (nuevoUsuario.contraseña.length < 4)
-            nuevosErrores.contraseña = "Debe tener al menos 4 caracteres.";
+    try {
+      const res = await fetch(`${API_USER}/api/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role, // "USER" o "ADMIN"
+        }),
+      });
 
-        if (!nuevoUsuario.rol.trim())
-            nuevosErrores.rol = "Debes seleccionar un rol.";
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Error al crear usuario");
+      }
 
-        setErrores(nuevosErrores);
-        return Object.keys(nuevosErrores).length === 0;
-    };
+      setMensaje("Usuario creado correctamente");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setRole("USER");
 
-    const handleAgregar = (e) => {
-        e.preventDefault();
-        if (!validarCampos()) return;
+      // recargar lista
+      cargarUsuarios();
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Error al crear usuario");
+    }
+  };
 
-        const correoExistente = usuarios.some(
-            (u, i) => u.correo === nuevoUsuario.correo && i !== editando
-        );
-        if (correoExistente) {
-            setErrores({ correo: "Ya existe un usuario con este correo." });
-            return;
-        }
+  const handleDelete = async (id) => {
+    if (!window.confirm("¿Seguro que quieres eliminar este usuario?")) return;
 
-        if (editando !== null) {
-            const actualizados = usuarios.map((u, i) =>
-                i === editando ? nuevoUsuario : u
-            );
-            setUsuarios(actualizados);
-            setEditando(null);
-        } else {
-            setUsuarios([...usuarios, nuevoUsuario]);
-        }
+    try {
+      const res = await fetch(`${API_USER}/api/users/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Error al eliminar usuario");
+      setMensaje("Usuario eliminado");
+      cargarUsuarios();
+    } catch (err) {
+      console.error(err);
+      setError("Error al eliminar usuario");
+    }
+  };
 
-        setNuevoUsuario({ nombre: "", correo: "", contraseña: "", rol: "" });
-        setErrores({});
-    };
+  return (
+    <main className="adminHome-main">
+      <h1 className="h1-admin">Gestión de usuarios</h1>
 
-    const handleEditar = (index) => {
-        setNuevoUsuario(usuarios[index]);
-        setEditando(index);
-    };
+      <section className="formulario-div">
+        <h2>Agregar usuario</h2>
+        <form onSubmit={handleSubmit} className="form-agregar-usuario">
+          <label>Nombre*</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-    const handleEliminar = (index) => {
-        setUsuarios(usuarios.filter((_, i) => i !== index));
-    };
+          <label>Correo*</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-    return (
-        <>
-            <h1 className="h1-admin">Gestión de usuarios</h1>
-            <main className="gestionUsuarios-main">
-                <form className="form-usuario" onSubmit={handleAgregar}>
-                    <div className="campo">
-                        <input
-                            type="text"
-                            name="nombre"
-                            placeholder="Nombre"
-                            value={nuevoUsuario.nombre}
-                            onChange={handleChange}
-                        />
-                        {errores.nombre && (
-                            <p className="error">{errores.nombre}</p>
-                        )}
-                    </div>
+          <label>Contraseña*</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-                    <div className="campo">
-                        <input
-                            type="email"
-                            name="correo"
-                            placeholder="Correo"
-                            value={nuevoUsuario.correo}
-                            onChange={handleChange}
-                        />
-                        {errores.correo && (
-                            <p className="error">{errores.correo}</p>
-                        )}
-                    </div>
+          <label>Rol*</label>
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
 
-                    <div className="campo">
-                        <input
-                            type="password"
-                            name="contraseña"
-                            placeholder="Contraseña"
-                            value={nuevoUsuario.contraseña}
-                            onChange={handleChange}
-                        />
-                        {errores.contraseña && (
-                            <p className="error">{errores.contraseña}</p>
-                        )}
-                    </div>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {mensaje && <p style={{ color: "green" }}>{mensaje}</p>}
 
-                    <div className="campo">
-                        <select
-                            name="rol"
-                            value={nuevoUsuario.rol}
-                            onChange={handleChange}
-                            className="select-rol"
-                        >
-                            <option value="">Seleccionar rol</option>
-                            <option value="ADMIN">Admin</option>
-                            <option value="CLIENTE">Cliente</option>
-                        </select>
-                        {errores.rol && <p className="error">{errores.rol}</p>}
-                    </div>
+          <button type="submit">Guardar usuario</button>
+        </form>
+      </section>
 
-                    <button type="submit">
-                        {editando !== null
-                            ? "Actualizar usuario"
-                            : "Agregar usuario"}
-                    </button>
-                </form>
-
-                <table className="tabla-usuarios">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Contraseña</th>
-                            <th>Rol</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {usuarios.length === 0 ? (
-                            <tr>
-                                <td colSpan="5">
-                                    No hay usuarios registrados
-                                </td>
-                            </tr>
-                        ) : (
-                            usuarios.map((u, index) => (
-                                <tr key={index}>
-                                    <td>{u.nombre}</td>
-                                    <td>{u.correo}</td>
-                                    <td>
-                                        {"•".repeat(u.contraseña.length)}
-                                    </td>
-                                    <td>{u.rol}</td>
-                                    <td>
-                                        <div className="acciones-flex">
-                                            <button
-                                                onClick={() => handleEditar(index)}
-                                                className="edit-button"
-                                                >
-                                                <img src="/Img/edit.svg" alt="Editar" />
-                                            </button>
-                                            <button
-                                                onClick={() => handleEliminar(index)}
-                                                className="delete-button"
-                                                >
-                                                <img src="/Img/delete.svg" alt="Eliminar" />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </main>
-        </>
-    );
+      <section className="tabla-usuarios">
+        <h2>Usuarios registrados</h2>
+        {usuarios.length === 0 ? (
+          <p>No hay usuarios registrados.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuarios.map((u) => (
+                <tr key={u.id}>
+                  <td>{u.name}</td>
+                  <td>{u.email}</td>
+                  <td>{u.role}</td>
+                  <td>
+                    <button onClick={() => handleDelete(u.id)}>Eliminar</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+    </main>
+  );
 }
