@@ -5,7 +5,7 @@ import "../styles/main.css";
 export default function BannerNavbar() {
     const navigate = useNavigate();
     const [usuarioActivo, setUsuarioActivo] = useState(null);
-    const [menuAbierto, setMenuAbierto] = useState(false); 
+    const [menuAbierto, setMenuAbierto] = useState(false);
 
     useEffect(() => {
         const actualizarUsuario = () => {
@@ -13,16 +13,29 @@ export default function BannerNavbar() {
             setUsuarioActivo(usuario);
         };
 
+        // cargar usuario al abrir la página
         actualizarUsuario();
-        window.addEventListener("usuarioLogueado", actualizarUsuario);
 
-        return () => window.removeEventListener("usuarioLogueado", actualizarUsuario);
+        // eventos para actualizar
+        window.addEventListener("usuarioLogueado", actualizarUsuario);
+        window.addEventListener("usuarioLogout", actualizarUsuario);
+
+        return () => {
+            window.removeEventListener("usuarioLogueado", actualizarUsuario);
+            window.removeEventListener("usuarioLogout", actualizarUsuario);
+        };
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("usuarioActivo");
+        localStorage.removeItem("email");    // 🔥 IMPORTANTE
+        localStorage.removeItem("role");
+
         setUsuarioActivo(null);
-        window.dispatchEvent(new Event("usuarioLogueado"));
+
+        // ahora usamos el evento correcto
+        window.dispatchEvent(new Event("usuarioLogout"));
+
         navigate("/login");
         setMenuAbierto(false);
     };
@@ -56,16 +69,6 @@ export default function BannerNavbar() {
                         <i className={`fa-solid ${menuAbierto ? "fa-xmark" : "fa-bars"}`}></i>
                     </button>
                 </div>
-                
-                <ul className="nav-menu nav-menu--a11y">
-                <li className="nav-item"><Link className="nav-link" to="/nosotros">Sobre nosotros</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/blog">Blog</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/catalogo">Catálogo</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/contacto">Contacto</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/login">Iniciar sesión</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/carrito">Ver carrito 🛒(1)</Link></li>
-                </ul>
-
 
                 {menuAbierto && (
                     <div className="burger-menu">
@@ -74,10 +77,10 @@ export default function BannerNavbar() {
                         <Link to="/contacto" onClick={() => setMenuAbierto(false)}>Contacto</Link>
 
                         {!usuarioActivo ? (
-                                <Link to="/login" onClick={() => setMenuAbierto(false)} className="logout-button-flex">
-                                    <img src="/Img/login.svg" alt="Login icon" /> 
-                                    <span>Iniciar sesión</span>
-                                </Link>
+                            <Link to="/login" onClick={() => setMenuAbierto(false)} className="logout-button-flex">
+                                <img src="/Img/login.svg" alt="Login icon" />
+                                <span>Iniciar sesión</span>
+                            </Link>
                         ) : (
                             <button onClick={handleLogout} className="logout-button-flex">
                                 <img src="/Img/logoutBlack.svg" alt="Logout icon" />
@@ -148,5 +151,3 @@ export default function BannerNavbar() {
         </div>
     );
 }
-
-

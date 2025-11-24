@@ -21,18 +21,32 @@ services:
     networks:
       - nicaxel-net
 
+  cart-service:
+    build:
+      context: ./cart-service
+    container_name: nicaxel-cart-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - backend
+      - user-service
+    networks:
+      - nicaxel-net
+
   frontend:
     build:
-      context: ./frontend  
+      context: ./frontend
     container_name: nicaxel-frontend
     ports:
       - "80:80"
     depends_on:
       - backend
       - user-service
+      - cart-service
     environment:
       - VITE_API_URL=http://backend:8080
       - VITE_USER_API_URL=http://user-service:8081
+      - VITE_CART_API_URL=http://cart-service:8082
     networks:
       - nicaxel-net
 

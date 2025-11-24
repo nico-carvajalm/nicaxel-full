@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Catalogo() {
     const API_URL = import.meta.env.VITE_API_URL;
+    const CART_API_URL = import.meta.env.VITE_CART_API_URL;
 
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(300000);
@@ -37,26 +38,56 @@ export default function Catalogo() {
         setFilteredProducts(newFilteredParfums);
     };
 
-    const handleAddToCart = (product) => {
-        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-        const existente = carrito.find((item) => item.id === product.id);
+    const handleAddToCart = async (product) => {
+    // Revisar si hay usuario logueado
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
 
-        if (existente) {
-            existente.cantidad += 1;
-        } else {
-            carrito.push({ ...product, cantidad: 1 });
-        }
-
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-
-        toast.success(`${product.name} fue agregado al carrito 🛒`, {
+    if (!usuarioActivo) {
+        toast.error("Debes iniciar sesión para agregar productos al carrito 🧾", {
             position: "bottom-right",
             autoClose: 2000,
-            hideProgressBar: false,
-            pauseOnHover: true,
             theme: "colored",
         });
-    };
+        return;
+    }
+
+    const email = usuarioActivo.email;
+
+    
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const existente = carrito.find((item) => item.id === product.id);
+
+    if (existente) {
+        existente.cantidad += 1;
+    } else {
+        carrito.push({ ...product, cantidad: 1 });
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    // --- Enviar al microservicio de carrito  ---
+    try {
+        const url = `${CART_API_URL}/api/cart/add?email=${encodeURIComponent(
+            email
+        )}&productId=${product.id}&quantity=1`;
+
+        await fetch(url, {
+            method: "POST"
+        });
+    } catch (error) {
+        console.error("No se pudo guardar en el microservicio del carrito:", error);
+    }
+
+    // Notificación
+    toast.success(`${product.name} fue agregado al carrito 🛒`, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        theme: "colored",
+    });
+};
+
 
     return (
         <main className="catalogo-main">
@@ -114,7 +145,7 @@ export default function Catalogo() {
                     <div className="perfume02" key={product.id}>
                         <div className="perfume-card02">
                             <img
-                                src={product.imageUrl}
+                                src={product.imageUrl || "/Img/no-image.png"}
                                 alt={product.name}
                                 className="product-image02"
                             />

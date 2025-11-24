@@ -2,64 +2,87 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Carrito() {
-    const [carrito, setCarrito] = useState([]);
+    const [carrito, setCarrito] = useState(null);
+
+    const API_CART = import.meta.env.VITE_CART_API_URL;
+    const email = localStorage.getItem("email");
 
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem("carrito")) || [];
-        setCarrito(items);
+        console.log("CART API:", API_CART);
+        console.log("EMAIL:", email);
+
+        if (!email) return;
+
+        fetch(`${API_CART}/api/cart/${email}`)
+            .then((res) => res.json())
+            .then((data) => setCarrito(data))
+            .catch((err) => console.error("Error cargando carrito:", err));
     }, []);
 
-    const eliminarDelCarrito = (id) => {
-        const nuevoCarrito = carrito.filter(item => item.id !== id);
-        setCarrito(nuevoCarrito);
-        localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-    };
+    if (!carrito) return <h2>Cargando carrito...</h2>;
 
-    const subtotal = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+    if (!carrito.items || carrito.items.length === 0) {
+        return (
+            <main className="carrito-main">
+                <h1>Tu carrito 🛍️</h1>
+                <p className="carrito-vacio-text">
+                    Tu carrito está vacío.{" "}
+                    <Link to="/catalogo" className="ir-catalogo">
+                        Ir al catálogo
+                    </Link>
+                </p>
+            </main>
+        );
+    }
+
+    const subtotal = carrito.items.reduce((acc, item) => {
+        const price = item.finalPrice ?? item.price ?? 0;
+        return acc + price * item.quantity;
+    }, 0);
 
     return (
         <main className="carrito-main">
             <h1>Tu carrito 🛍️</h1>
 
-            {carrito.length === 0 ? (
-                <p className="carrito-vacio-text">Tu carrito está vacío. <Link to="/catalogo" className="ir-catalogo">Ir al catálogo</Link></p>
-            ) : (
-                <>
-                    <section className="detalle">
-                        {carrito.map((item) => (
-                            <article className="detalle-flex" key={item.id}>
-                                <img src={item.imagen} alt={item.nombre} />
-                                <span className="perfume-nombre">{item.nombre}</span>
-                                <span className="perfume-precio">
-                                    ${item.precio.toLocaleString("es-CL")}
-                                </span>
-                                <span>Cant: {item.cantidad}</span>
-                                <button 
-                                    className="eliminar-carrito"
-                                    onClick={() => eliminarDelCarrito(item.id)}
-                                >
-                                    ❌
-                                </button>
-                            </article>
-                        ))}
-                    </section>
+            <section className="detalle">
+                {carrito.items.map((item) => (
+                    <article className="detalle-flex" key={item.itemId}>
+                        
+                        {/* Imagen del producto */}
+                        <img 
+                            src={item.imageUrl} 
+                            alt={item.name} 
+                        />
 
-                    <section className="total">
-                        <article className="total-flex">
-                            <h3>Total</h3>
-                            <div className="total-precio-flex">
-                                <span>CLP</span>
-                                <span>${subtotal.toLocaleString("es-CL")}</span>
-                            </div>
-                        </article>
-                    </section>
+                        {/* Nombre */}
+                        <span className="perfume-nombre">
+                            {item.name || "Producto"}
+                        </span>
 
-                    <div className="pagar-button-div">
-                        <Link to="/" className="pagar">Completar pago</Link>
+                        {/* Precio */}
+                        <span className="perfume-precio">
+                            ${ (item.finalPrice ?? item.price ?? 0).toLocaleString("es-CL") }
+                        </span>
+
+                        {/* Cantidad */}
+                        <span>Cant: {item.quantity}</span>
+                    </article>
+                ))}
+            </section>
+
+            <section className="total">
+                <article className="total-flex">
+                    <h3>Total</h3>
+                    <div className="total-precio-flex">
+                        <span>CLP</span>
+                        <span>${subtotal.toLocaleString("es-CL")}</span>
                     </div>
-                </>
-            )}
+                </article>
+            </section>
+
+            <div className="pagar-button-div">
+                <Link to="/" className="pagar">Completar pago</Link>
+            </div>
         </main>
     );
 }
-

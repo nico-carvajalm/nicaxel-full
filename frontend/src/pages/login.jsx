@@ -36,6 +36,7 @@ export default function Login() {
             // guardar token y datos del usuario en localStorage
             localStorage.setItem("usuarioActivo", JSON.stringify(data));
             localStorage.setItem("role", data.role);
+            localStorage.setItem("email", correo); 
 
 
 
