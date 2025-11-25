@@ -4,17 +4,17 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LayoutPublic from './layouts/LayoutPublic';
 import LayoutAdmin from './layouts/LayoutAdmin';
 
-import Home from './pages/Home';
-import Carrito from './pages/Carrito';
-import Catalogo from './pages/Catalogo';
-import Contacto from './pages/Contacto';
-import Login from './pages/Login';
-import Nosotros from './pages/Nosotros';
-import Register from './pages/Register';
+import Home from './pages/Home.jsx';
+import Carrito from './pages/Carrito.jsx';
+import Catalogo from './pages/Catalogo.jsx';
+import Contacto from './pages/Contacto.jsx';
+import Login from './pages/Login.jsx';
+import Nosotros from './pages/Nosotros.jsx';
+import Register from './pages/Register.jsx';
 
-import AdminHome from './pages/AdminHome';
-import AgregarProducto from "./pages/AgregarProducto";
-import AgregarUsuario from "./pages/AgregarUsuario";
+import AdminHome from './pages/AdminHome.jsx';
+import AgregarProducto from "./pages/AgregarProducto.jsx";
+import AgregarUsuario from "./pages/AgregarUsuario.jsx";
 
 
 //  RUTA PRIVADA SEGÚN ROL REAL
