@@ -1,34 +1,44 @@
 version: "3.9"
 
 services:
-  backend:
+  product-service:
     build:
       context: ./product-service
-    container_name: nicaxel-backend
+    container_name: product-service
     ports:
       - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://98.93.39.249:3306/nicaxel
+      SPRING_DATASOURCE_USERNAME: nicouser
+      SPRING_DATASOURCE_PASSWORD: SuperClave123!
     networks:
       - nicaxel-net
 
   user-service:
     build:
       context: ./user-service
-    container_name: nicaxel-user-service
+    container_name: user-service
     ports:
       - "8081:8081"
-    volumes:
-      - user-data:/data
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://98.93.39.249:3306/nicaxel
+      SPRING_DATASOURCE_USERNAME: nicouser
+      SPRING_DATASOURCE_PASSWORD: SuperClave123!
     networks:
       - nicaxel-net
 
   cart-service:
     build:
       context: ./cart-service
-    container_name: nicaxel-cart-service
+    container_name: cart-service
     ports:
       - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://98.93.39.249:3306/nicaxel
+      SPRING_DATASOURCE_USERNAME: nicouser
+      SPRING_DATASOURCE_PASSWORD: SuperClave123!
     depends_on:
-      - backend
+      - product-service
       - user-service
     networks:
       - nicaxel-net
@@ -36,23 +46,20 @@ services:
   frontend:
     build:
       context: ./frontend
-    container_name: nicaxel-frontend
+    container_name: frontend
     ports:
       - "80:80"
+    environment:
+      - VITE_API_URL=http://98.93.39.249:8080
+      - VITE_USER_API_URL=http://98.93.39.249:8081
+      - VITE_CART_API_URL=http://98.93.39.249:8082
     depends_on:
-      - backend
+      - product-service
       - user-service
       - cart-service
-    environment:
-      - VITE_API_URL=http://backend:8080
-      - VITE_USER_API_URL=http://user-service:8081
-      - VITE_CART_API_URL=http://cart-service:8082
     networks:
       - nicaxel-net
 
 networks:
   nicaxel-net:
     driver: bridge
-
-volumes:
-  user-data:
