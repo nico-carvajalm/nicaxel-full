@@ -9,8 +9,7 @@ services:
       MYSQL_DATABASE: nicaxel
       MYSQL_USER: nicouser
       MYSQL_PASSWORD: SuperClave123!
-    ports:
-      - "3306:3306"
+
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
