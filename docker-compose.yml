@@ -1,6 +1,21 @@
 version: "3.9"
 
 services:
+  db:
+    image: mariadb:10.5
+    container_name: nicaxel-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: nicaxel
+      MYSQL_USER: nicouser
+      MYSQL_PASSWORD: SuperClave123!
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - nicaxel-net
+
   product-service:
     build:
       context: ./product-service
@@ -8,9 +23,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://98.93.39.249:3306/nicaxel
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/nicaxel
       SPRING_DATASOURCE_USERNAME: nicouser
       SPRING_DATASOURCE_PASSWORD: SuperClave123!
+    depends_on:
+      - db
     networks:
       - nicaxel-net
 
@@ -21,9 +38,11 @@ services:
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://98.93.39.249:3306/nicaxel
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/nicaxel
       SPRING_DATASOURCE_USERNAME: nicouser
       SPRING_DATASOURCE_PASSWORD: SuperClave123!
+    depends_on:
+      - db
     networks:
       - nicaxel-net
 
@@ -34,10 +53,11 @@ services:
     ports:
       - "8082:8082"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://98.93.39.249:3306/nicaxel
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/nicaxel
       SPRING_DATASOURCE_USERNAME: nicouser
       SPRING_DATASOURCE_PASSWORD: SuperClave123!
     depends_on:
+      - db
       - product-service
       - user-service
     networks:
@@ -63,3 +83,6 @@ services:
 networks:
   nicaxel-net:
     driver: bridge
+
+volumes:
+  mysql-data:
