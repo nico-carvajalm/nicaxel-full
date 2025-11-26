@@ -19,18 +19,22 @@ En este apartado lo primero que encontrarás será el header de nuestra web el c
 Aquí encontrarás 2 secciones de perfumes: 'Los más vendidos' y 'Recién llegados'. Cada una de ellas es un carrusel de perfumes y ambas tienen un link directo al catálogo completo.
 
 ## Sobre nosotros 🏙️
-<img width="1905" height="791" alt="image" src="https://github.com/user-attachments/assets/b988ccf9-cfbe-4266-95d2-d05fa7198afe" />
+<img width="1902" height="888" alt="image" src="https://github.com/user-attachments/assets/c76f1fed-7008-4e8d-b9d1-5eb3d4988126" />
 Aquí encontrarás una sección de Faq´s o preguntas frecuentes que puedes tener como cliente tales como: garantías, métodos de pago o más información acerca de Nicaxel.
 
 ## Catálogo 📖
-<img width="1903" height="827" alt="image" src="https://github.com/user-attachments/assets/ce87e7ba-2a61-4e30-85d6-e27595ed9ec6" />
+<img width="1904" height="920" alt="image" src="https://github.com/user-attachments/assets/ba4ceb9e-1ea3-43f1-974f-a28e403cd672" />
 En esta sección se muestra el catálogo completo de nuestros perfumes con un filtro a disposición del cliente con el cual va a poder filtrar por: precio mínimo, precio máximo y/o marca.
 
 ## Contacto 📞
-<img width="1905" height="701" alt="image" src="https://github.com/user-attachments/assets/546fb212-9a67-46ef-b6e1-44c72d976335" />
+<img width="1905" height="793" alt="image" src="https://github.com/user-attachments/assets/87b2593d-1231-4413-85ea-ade61c85961c" />
 Desde aquí el usuario podrá enviarnos alguna petición de cualquier tipo llenando un formulario simple con su nombre y apellido, correo electrónico y un mensaje con el contenido de la razón por la cual nos contacta.
 
 ## Login y Registro 🔑
-<img width="1902" height="718" alt="image" src="https://github.com/user-attachments/assets/f62b207d-7dc1-4987-a6b0-7fde70c80663" />
-<img width="1915" height="502" alt="image" src="https://github.com/user-attachments/assets/dec92e1a-e17c-436a-83e7-3bdaced943d1" />
+<img width="1902" height="812" alt="image" src="https://github.com/user-attachments/assets/cb05ca9d-85f5-4374-8882-d68fac32b1ad" />
+<img width="1919" height="599" alt="image" src="https://github.com/user-attachments/assets/e8ed1664-df7b-4d5a-b8a2-3dc50bd490b4" />
 Aquí el usuario podrá registrar una nueva cuenta y/o logearse con una cuenta ya existente.
+
+## Carrito de compras 🛒
+<img width="1906" height="747" alt="image" src="https://github.com/user-attachments/assets/ae806a25-4429-4341-8038-e55c221bbb06" />
+Desde aquí el usuario podrá ver el detalle (precio y cantidad) de todos los productos que haya agregado al carrito desde el catálogo además del subtotal a pagar. 
