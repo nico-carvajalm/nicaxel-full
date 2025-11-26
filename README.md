@@ -39,4 +39,4 @@ Aquí el usuario podrá registrar una nueva cuenta y/o logearse con una cuenta y
 <img width="1906" height="747" alt="image" src="https://github.com/user-attachments/assets/ae806a25-4429-4341-8038-e55c221bbb06" />
 Desde aquí el usuario podrá ver el detalle (precio y cantidad) de todos los productos que haya agregado al carrito desde el catálogo además del subtotal a pagar. 
 
-## Panel de Administrador ---------------------------------------------------------------------------------------------------------
+## Panel de Administrador ------------------------------------------
