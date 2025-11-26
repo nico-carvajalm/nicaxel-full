@@ -17,3 +17,7 @@ En este apartado lo primero que encontrarás será el header de nuestra web el c
 <img width="1881" height="667" alt="image" src="https://github.com/user-attachments/assets/558bd418-0370-4434-91a2-befbff7aed48" />
 <img width="1876" height="645" alt="image" src="https://github.com/user-attachments/assets/29174a5f-f9ce-4c0e-a255-dfce67849717" />
 Aquí encontrarás 2 secciones de perfumes: 'Los más vendidos' y 'Recién llegados'. Cada una de ellas es un carrusel de perfumes y ambas tienen un link directo al catálogo completo.
+
+## Sobre nosotros 🏙️
+<img width="1905" height="791" alt="image" src="https://github.com/user-attachments/assets/b988ccf9-cfbe-4266-95d2-d05fa7198afe" />
+Aquí encontrarás una sección de Faq´s o preguntas frecuentes que puedes tener como cliente tales como: garantías, métodos de pago o más información acerca de Nicaxel.
