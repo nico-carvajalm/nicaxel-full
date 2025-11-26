@@ -25,3 +25,7 @@ Aquí encontrarás una sección de Faq´s o preguntas frecuentes que puedes tene
 ## Catálogo 📖
 <img width="1903" height="827" alt="image" src="https://github.com/user-attachments/assets/ce87e7ba-2a61-4e30-85d6-e27595ed9ec6" />
 En esta sección se muestra el catálogo completo de nuestros perfumes con un filtro a disposición del cliente con el cual va a poder filtrar por: precio mínimo, precio máximo y/o marca.
+
+## Contacto 📞
+<img width="1905" height="701" alt="image" src="https://github.com/user-attachments/assets/546fb212-9a67-46ef-b6e1-44c72d976335" />
+Desde aquí el usuario podrá enviarnos alguna petición de cualquier tipo llenando un formulario simple con su nombre y apellido, correo electrónico y un mensaje con el contenido de la razón por la cual nos contacta.
