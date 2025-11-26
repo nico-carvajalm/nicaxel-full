@@ -49,3 +49,8 @@ password: admin123
 ## Gestión de usuarios 🙍🏻‍♂️
 <img width="1920" height="712" alt="image" src="https://github.com/user-attachments/assets/dded542e-cd88-4430-9f6f-c99e66786f9a" />
 Desde aquí tendrás acceso a: CRUD completo de usuarios, tanto para clientes como administradores y ver todos los usuarios registrados. Inicialmente solo hay 1 usuario con permisos para acceder a este panel y este mismo usuario inicial es el que podrá crear más usuarios admin con los mismos permisos.
+
+## Gestión de productos 🙍🏻‍♂️
+<img width="1920" height="663" alt="image" src="https://github.com/user-attachments/assets/f09ae5d9-3976-4fa6-8ad5-5e21cde74104" />
+Desde aquí podrás como admin crear un nuevo producto el cual se mostrará inmediatamente en el catálogo. 
+*Esta sección se encuentra en fase de pruebas ya que faltan detalles como el poder agregar una imagen al producto y las demás funciones del CRUD.
