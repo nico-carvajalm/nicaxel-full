@@ -5,7 +5,7 @@ Este proyecto es una aplicación web la cual su frontend fue desarrollado con Re
 
 ## MANUAL DE USUARIO 👦🏻
 
-## Flujo de cliente 🛒
+## Flujo de cliente -
 
 ## Home principal 🏠
 <img width="1905" height="711" alt="image" src="https://github.com/user-attachments/assets/6a4da3f8-37c7-4971-a24d-710cf63f0aec" />
@@ -21,3 +21,7 @@ Aquí encontrarás 2 secciones de perfumes: 'Los más vendidos' y 'Recién llega
 ## Sobre nosotros 🏙️
 <img width="1905" height="791" alt="image" src="https://github.com/user-attachments/assets/b988ccf9-cfbe-4266-95d2-d05fa7198afe" />
 Aquí encontrarás una sección de Faq´s o preguntas frecuentes que puedes tener como cliente tales como: garantías, métodos de pago o más información acerca de Nicaxel.
+
+## Catálogo 📖
+<img width="1903" height="827" alt="image" src="https://github.com/user-attachments/assets/ce87e7ba-2a61-4e30-85d6-e27595ed9ec6" />
+En esta sección se muestra el catálogo completo de nuestros perfumes con un filtro a disposición del cliente con el cual va a poder filtrar por: precio mínimo, precio máximo y/o marca.
