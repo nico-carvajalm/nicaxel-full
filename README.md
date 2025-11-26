@@ -29,3 +29,8 @@ En esta sección se muestra el catálogo completo de nuestros perfumes con un fi
 ## Contacto 📞
 <img width="1905" height="701" alt="image" src="https://github.com/user-attachments/assets/546fb212-9a67-46ef-b6e1-44c72d976335" />
 Desde aquí el usuario podrá enviarnos alguna petición de cualquier tipo llenando un formulario simple con su nombre y apellido, correo electrónico y un mensaje con el contenido de la razón por la cual nos contacta.
+
+## Login y Registro 🔑
+<img width="1902" height="718" alt="image" src="https://github.com/user-attachments/assets/f62b207d-7dc1-4987-a6b0-7fde70c80663" />
+<img width="1915" height="502" alt="image" src="https://github.com/user-attachments/assets/dec92e1a-e17c-436a-83e7-3bdaced943d1" />
+Aquí el usuario podrá registrar una nueva cuenta y/o logearse con una cuenta ya existente.
