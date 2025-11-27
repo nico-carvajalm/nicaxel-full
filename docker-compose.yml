@@ -69,9 +69,9 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_API_URL=http://98.93.39.249:8080
-      - VITE_USER_API_URL=http://98.93.39.249:8081
-      - VITE_CART_API_URL=http://98.93.39.249:8082
+      - VITE_API_URL=http://98.91.44.215:8080
+      - VITE_USER_API_URL=http://98.91.44.215:8081
+      - VITE_CART_API_URL=http://98.91.44.215:8082
     depends_on:
       - product-service
       - user-service
