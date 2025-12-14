@@ -3,9 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
-    const API_USER = window.location.hostname === "localhost"
-    ? "http://localhost:8081"
-    : "http://host.docker.internal:8081";
+    const API_USER = import.meta.env.VITE_USER_API_URL;
 
 
     const [correo, setCorreo] = useState("");

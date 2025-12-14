@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { apiFetch } from "../utils/apiFetch";
 
 export default function AgregarUsuario() {
-  const API_USER =
-    window.location.hostname === "localhost"
-      ? "http://localhost:8081"
-      : "http://host.docker.internal:8081";
+  const API_USER = import.meta.env.VITE_USER_API_URL;
 
   const [usuarios, setUsuarios] = useState([]);
   const [name, setName] = useState("");
@@ -16,7 +14,7 @@ export default function AgregarUsuario() {
 
   const cargarUsuarios = async () => {
     try {
-      const res = await fetch(`${API_USER}/api/users`);
+      const res = await apiFetch(`${API_USER}/api/users`);
       if (!res.ok) throw new Error("Error al cargar usuarios");
       const data = await res.json();
       setUsuarios(data);
@@ -41,7 +39,7 @@ export default function AgregarUsuario() {
     }
 
     try {
-      const res = await fetch(`${API_USER}/api/users`, {
+      const res = await apiFetch(`${API_USER}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -75,7 +73,7 @@ export default function AgregarUsuario() {
     if (!window.confirm("¿Seguro que quieres eliminar este usuario?")) return;
 
     try {
-      const res = await fetch(`${API_USER}/api/users/${id}`, {
+      const res = await apiFetch(`${API_USER}/api/users/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Error al eliminar usuario");
